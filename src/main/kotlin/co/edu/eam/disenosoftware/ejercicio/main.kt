@@ -81,7 +81,7 @@ fun getSumSavingAccountsAllClients():Double {
  * retorna las diferentes ciudades donde estan los clientes del banco
  */
 fun getCities():List<String> {
-    return customers.map { it.city }
+    return customers.map { it.city }.distinct()
 }
 
 fun getCustomersByCity(city: String): List<Customer>? {
@@ -92,7 +92,8 @@ fun getCustomersByCity(city: String): List<Customer>? {
  * retorna un mapa con la suma del saldo por ciudad de todos los clientes
  */
 fun getBalanceByCities(): Map<String,Double> {
-    return customers.associateBy(Customer::city, Customer::calculateBalance)
+    //customers.associateBy(Customer::city, Customer::calculateBalance)
+    return mapOf("tebaida" to customers.filter { it.city == "tebaida" }.sumOf { accounts -> accounts.accounts.sumOf { it.balance }},"calarca" to customers.filter { it.city == "calarca" }.sumOf { accounts -> accounts.accounts.sumOf { it.balance }},"el caimo" to customers.filter { it.city == "el caimo" }.sumOf { accounts -> accounts.accounts.sumOf { it.balance }},"montenegro" to customers.filter { it.city == "montenegro" }.sumOf { accounts -> accounts.accounts.sumOf { it.balance }},"armenia" to customers.filter { it.city == "armenia" }.sumOf { accounts -> accounts.accounts.sumOf { it.balance }},"bogota" to customers.filter { it.city == "bogota" }.sumOf { accounts -> accounts.accounts.sumOf { it.balance }})
 }
 
 /**
